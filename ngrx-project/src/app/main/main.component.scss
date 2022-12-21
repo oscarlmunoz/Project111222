@@ -1,0 +1,28 @@
+@use "src/styles/variables.scss" as vars;
+
+.header-toolbar-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-body-container {
+  display: flex;
+}
+
+.left-side-panel {
+  background-color: vars.$background-jet;
+  width: 50px;
+  height: calc(100vh - 65px); // substract header-toolbar-container heigth
+  padding: vars.$standard-spacing;
+}
+
+.body-container {
+  padding: vars.$standard-spacing;
+}
+
+.left-side-panel-button {
+  background: transparent;
+  box-shadow: none;
+}
