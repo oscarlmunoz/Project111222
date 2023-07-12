@@ -3,6 +3,7 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanActivateChild,
+  Router,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,14 +12,18 @@ import { MyAppState } from '../ngrx/state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private store: Store<MyAppState>) {}
+  constructor(private store: Store<MyAppState>, private router: Router) {}
 
   public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    // TODO add auth logic to this guard
+    // if(notAutenticated){
+    //   this.router.navigate(['/login']);
+    //   return of(false);
+    // } else {
     return of(true);
+    // }
   }
 
   public canActivateChild(

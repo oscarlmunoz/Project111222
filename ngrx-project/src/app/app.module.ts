@@ -7,15 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material/material.module';
 import { NGRXModule } from './ngrx/ngrx-module';
 
 @NgModule({
   // allow web components (Angular Material)
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [AppComponent, MainComponent, HomeComponent],
+  declarations: [AppComponent, MainComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +25,7 @@ import { NGRXModule } from './ngrx/ngrx-module';
     MaterialModule,
     NGRXModule,
     StoreDevtoolsModule.instrument(),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

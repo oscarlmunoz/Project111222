@@ -37,7 +37,7 @@ export const reducer = createReducer(
     return {
       ...state,
       entities: payload.courseList ?? [],
-      status: LoadingStatus.Comleted,
+      status: LoadingStatus.Completed,
     };
   }),
 

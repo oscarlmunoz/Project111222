@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HomePreloadGuard } from './components/home/home-preload.guard';
-import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 
 const childRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [HomePreloadGuard],
+    canActivate: [AuthGuard], // Agregar la guarda de ruta aquí
+    loadChildren: async (): Promise<any> =>
+      (await import('./home/home.module')).HomeModule,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
 

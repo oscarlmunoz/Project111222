@@ -1,0 +1,8 @@
+<div
+  *ngIf="{ value: status === LoadingStatus.Loading } as isLoading"
+  [ngClass]="{ 'spinner-style': isLoading.value }"
+>
+  <mat-spinner class="spinner" *ngIf="isLoading.value"></mat-spinner>
+
+  <ng-content></ng-content>
+</div>

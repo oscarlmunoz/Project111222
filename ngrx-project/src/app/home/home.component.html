@@ -1,0 +1,5 @@
+<app-spinner [status]="(courseListStatus | async) ?? LoadingStatus.Loading">
+  <div *ngFor="let course of courseList | async">
+    {{ course.Name }}
+  </div>
+</app-spinner>
