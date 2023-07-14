@@ -1,0 +1,5 @@
+<app-spinner [status]="(loadingStatus | async) ?? LoadingStatus.Loading">
+  <div>
+    {{ courseInfo | async | json }}
+  </div>
+</app-spinner>

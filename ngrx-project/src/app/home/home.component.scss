@@ -1,0 +1,6 @@
+@use "src/styles/variables.scss" as vars;
+
+.card-list-container {
+  display: flex;
+  gap: vars.$standard-spacing;
+}

@@ -1,16 +1,17 @@
-import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
-import { ICourse } from '../../model/dto';
+import { ICourse, ICourseCard, ICourseInfo } from '../../model/dto';
 import { LoadingStatus } from '../../model/local-enums';
 import { coursesActions } from './course.actions';
 
 export const courseFeatureKey = 'courses';
 
-export interface CoursesState {
+export interface CoursesState extends EntityState<ICourse> {
   error?: string;
   status: LoadingStatus;
 
-  entities: ICourse[];
+  courseList: ICourseCard[];
+  courseInfo?: ICourseInfo;
 }
 
 export const adapter: EntityAdapter<ICourse> = createEntityAdapter<ICourse>({
@@ -19,7 +20,7 @@ export const adapter: EntityAdapter<ICourse> = createEntityAdapter<ICourse>({
 
 export const initialState: CoursesState = adapter.getInitialState({
   status: LoadingStatus.Ready,
-  entities: [],
+  courseList: [],
 });
 
 export const reducer = createReducer(
@@ -28,7 +29,7 @@ export const reducer = createReducer(
   on(coursesActions.requestCoursesList, (state, _): CoursesState => {
     return {
       ...state,
-      entities: [],
+      courseList: [],
       status: LoadingStatus.Loading,
     };
   }),
@@ -36,7 +37,7 @@ export const reducer = createReducer(
   on(coursesActions.loadCoursesList, (state, payload): CoursesState => {
     return {
       ...state,
-      entities: payload.courseList ?? [],
+      courseList: payload.courseList ?? [],
       status: LoadingStatus.Completed,
     };
   }),
@@ -44,6 +45,31 @@ export const reducer = createReducer(
   on(coursesActions.requestCoursesListError, (state, payload): CoursesState => {
     return {
       ...state,
+      error: payload.error,
+      status: LoadingStatus.Errored,
+    };
+  }),
+
+  on(coursesActions.requestCourseInfo, (state, _): CoursesState => {
+    return {
+      ...state,
+      courseInfo: undefined,
+      status: LoadingStatus.Loading,
+    };
+  }),
+
+  on(coursesActions.loadCourseInfo, (state, payload): CoursesState => {
+    return {
+      ...state,
+      courseInfo: payload.courseInfo ?? undefined,
+      status: LoadingStatus.Completed,
+    };
+  }),
+
+  on(coursesActions.requestCourseInfoError, (state, payload): CoursesState => {
+    return {
+      ...state,
+      status: LoadingStatus.Errored,
       error: payload.error,
     };
   })
